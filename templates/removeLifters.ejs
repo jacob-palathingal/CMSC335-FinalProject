@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Remove Lifters</title>
+</head>
+
+<body>
+    <h1>Removing All Lifters</h1>
+    <form action= "/remove" method="post">
+        <input type="submit" value="Remove all lifters">
+    </form>
+    <hr>
+    <a href="/">HOME</a>
+</body>
+<script>
+    window.onsubmit = () => {
+       return window.confirm("Are you sure you want to remove the maxes of all lifters?");
+    }
+</script>
+</html>

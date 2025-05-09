@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Specify Rep Max</title>
+</head>
+
+<body>
+    <h1>What is your rep-max?</h1>
+    <form action= "/calculate" method="post">
+        <fieldset>
+            <label style="font-weight: bold">Name: <input type="text" name="name"/></label>
+            <label style="font-weight: bold">Email Address: <input type="email" name="email"></label><br><br>
+            <label style="font-weight: bold">Lift: <input type="text" name="lift"></label><br><br>
+            <label style="font-weight: bold">Weight: <input type="number" name="weight"></label>
+            <label style="font-weight: bold">Reps: <input type="number" name="reps"></label>
+        </fieldset>
+        <br>
+        <input type="reset" >
+        <input type="submit" value="Calculate my one rep max">
+    </form>
+    <hr>
+    <a href="/">HOME</a>
+</body>
+<script>
+    window.onsubmit = () => {
+       return window.confirm("Are you sure you want to submit your application?\nYou will not be able to change your information once submitted.");
+    }
+</script>
+</html>
