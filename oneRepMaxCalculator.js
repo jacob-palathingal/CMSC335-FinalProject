@@ -81,7 +81,7 @@ app.post("/review", (req, res) => {
                 const variables = {name: result.name, email: result.email, lift: result.lift, max: result.max}
                 res.render("displayMax.ejs", variables);
             }else{
-                const variables = {name: "N/A", email: "N/A", lift: "N/A", reps: "N/A"};
+                const variables = {name: "N/A", email: "N/A", lift: "N/A", max: "N/A"};
                 res.render("displayMax.ejs", variables);
             }
         }catch(e){
