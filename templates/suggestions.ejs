@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise Suggestions</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Suggested Exercises</h1>
+    <ul>
+        <% exercises.forEach(exercise => { %>
+            <li>
+                <strong><%= exercise.name %></strong><br>
+                <img src="<%= exercise.gifUrl %>" alt="<%= exercise.name %>" width="200"><br>
+                Target Muscle: <%= exercise.target %>
+            </li>
+        <% }); %>
+    </ul>
+    <a href="/">Back</a>
+</body>
+</html>

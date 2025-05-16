@@ -115,3 +115,23 @@ app.post("/remove", (req, res) => {
     }
     main();
 });
+app.get("/suggest", async (req, res) => {
+    const muscleGroup = "chest"; // TEMP FIX: hardcoded for now
+
+    try {
+        const response = await fetch(`https://exercisedb.p.rapidapi.com/exercises/target/${muscleGroup}`, {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+                'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+            }
+        });
+        const data = await response.json();
+        const selectedExercises = data.slice(0, 5);
+        res.render("suggestions.ejs", { exercises: selectedExercises });
+
+    } catch (error) {
+        console.error(error);
+        res.send("Error fetching exercises");
+    }
+});
