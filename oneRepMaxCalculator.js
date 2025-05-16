@@ -40,4 +40,20 @@ app.get("/suggest", async (req, res) => {
 // Start the server
 app.listen(portNumber, () => {
     console.log(`Server running at http://localhost:${portNumber}`);
+    process.stdout.write("Stop to shutdown the server: ");
+    process.stdin.setEncoding("utf8");
+    process.stdin.on('readable', () => {
+        const dataInput = process.stdin.read();
+        if(dataInput !== null){
+            const command = dataInput.trim();
+            if(command === "stop"){
+                process.stdout.write("Shutting down the server");
+                process.exit(0);
+            }else{
+                console.log(`Invalid command: ${command}`)
+            }
+            process.stdin.resume();
+            process.stdout.write("Stop to shutdown the server: ");
+        }
+    })
 });
