@@ -1,0 +1,30 @@
+/* public/styles.css */
+
+body {
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 28px;
+}
+
+a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+form {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
