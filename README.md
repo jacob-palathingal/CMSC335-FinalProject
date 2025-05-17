@@ -4,4 +4,4 @@ App Description: Allow users to find their one-rep-max bench press, squat, or de
 YouTube Video Link:
 APIs:
 Contact Email:
-Deployed App Link:
+Deployed App Link: https://cmsc335-finalproject-1-1fl9.onrender.com
