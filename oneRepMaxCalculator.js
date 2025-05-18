@@ -5,18 +5,14 @@ const app = express();
 const portNumber = 3000;
 const fetch = require('node-fetch');
  
-
-
 require("dotenv").config({ path: path.resolve(__dirname, '.env') });
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// Serve static files like styles.css from public folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// Mount your routes from lifterRoutes
+// Mount routes from lifterRoutes
 const lifterRoutes = require("./routes/lifterRoutes");
 app.use("/", lifterRoutes);
 
@@ -27,11 +23,8 @@ app.post("/suggest", async (req, res) => {
     "Deadlift": "glutes"
     };
 
-
     const lift = req.body.lift;
     const muscleGroup = muscleMap[lift] || "chest"; // Default fallback
-
-    // Use dynamic import if using node-fetch v3+
     const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
     try {
