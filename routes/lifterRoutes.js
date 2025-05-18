@@ -32,7 +32,7 @@ router.post("/calculate", async (req, res) => {
             max: req.body.weight * (1 + req.body.reps / 30)
         };
         await collection.insertOne(lifter);
-        res.render("displayMax.ejs", lifter);
+        res.render("displayMax.ejs", { lifts: [lifter] });
     } catch (e) {
         console.error(e);
     } finally {
@@ -50,11 +50,8 @@ router.post("/review", async (req, res) => {
         await client.connect();
         const db = client.db(databaseName);
         const collection = db.collection(collectionName);
-        const result = await collection.findOne({ email: req.body.email });
-        const variables = result
-            ? result
-            : { name: "N/A", email: "N/A", lift: "N/A", max: "N/A" };
-        res.render("displayMax.ejs", variables);
+        const results = await collection.find({ email: req.body.email }).toArray();
+        res.render("displayMax.ejs", { lifts: results });
     } catch (e) {
         console.error(e);
     } finally {

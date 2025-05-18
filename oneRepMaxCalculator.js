@@ -3,6 +3,9 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const app = express();
 const portNumber = 3000;
+const fetch = require('node-fetch');
+ 
+
 
 require("dotenv").config({ path: path.resolve(__dirname, '.env') });
 
@@ -17,9 +20,20 @@ app.use(express.static(path.join(__dirname, "public")));
 const lifterRoutes = require("./routes/lifterRoutes");
 app.use("/", lifterRoutes);
 
-// Standalone route: API usage for exercise suggestions
-app.get("/suggest", async (req, res) => {
-    const muscleGroup = "chest"; // TEMP: You can make this dynamic later
+app.post("/suggest", async (req, res) => {
+    const muscleMap = {
+    "Bench Press": "pectorals",
+    "Squat": "quads",
+    "Deadlift": "glutes"
+    };
+
+
+    const lift = req.body.lift;
+    const muscleGroup = muscleMap[lift] || "chest"; // Default fallback
+
+    // Use dynamic import if using node-fetch v3+
+    const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
     try {
         const response = await fetch(`https://exercisedb.p.rapidapi.com/exercises/target/${muscleGroup}`, {
             method: 'GET',
@@ -28,14 +42,18 @@ app.get("/suggest", async (req, res) => {
                 'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
             }
         });
+
+        if (!response.ok) throw new Error(`API error: ${response.statusText}`);
         const data = await response.json();
+
         const selectedExercises = data.slice(0, 5);
         res.render("suggestions.ejs", { exercises: selectedExercises });
     } catch (error) {
-        console.error(error);
-        res.send("Error fetching exercises");
+        console.error("Exercise API error:", error);
+        res.send("Error fetching suggested exercises.");
     }
 });
+
 
 // Start the server
 app.listen(portNumber, () => {
@@ -46,7 +64,7 @@ app.listen(portNumber, () => {
         const dataInput = process.stdin.read();
         if(dataInput !== null){
             const command = dataInput.trim();
-            if(command === "stop"){
+            if(command.toLowerCase() === "stop"){
                 process.stdout.write("Shutting down the server");
                 process.exit(0);
             }else{
